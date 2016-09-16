@@ -4,11 +4,12 @@
   "description": "zhihaoni.com",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Travis is awesome\""
+    "test": "echo \"Travis is awesome\"",
+    "copy-assets": "cp index.html public && cp style.css public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nilni/nilni.github.io.git"
+    "url": "git+https://github.com/nilni/niln1.com.git"
   },
   "keywords": [
     "zhihaoni.com"
@@ -16,9 +17,9 @@
   "author": "nil.ni",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nilni/nilni.github.io/issues"
+    "url": "https://github.com/nilni/niln1.com/issues"
   },
-  "homepage": "https://github.com/nilni/nilni.github.io#readme",
+  "homepage": "https://github.com/nilni/niln1.com#readme",
   "dependencies": {
     "react": "^15.3.1"
   }
