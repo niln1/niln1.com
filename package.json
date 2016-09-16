@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Travis is awesome\"",
+    "build:markdown": "./build/markdown.js",
     "copy-assets": "cp index.html public && cp style.css public"
   },
   "repository": {
