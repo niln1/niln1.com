@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/nilni/nilni.github.io/issues"
   },
-  "homepage": "https://github.com/nilni/nilni.github.io#readme"
+  "homepage": "https://github.com/nilni/nilni.github.io#readme",
+  "dependencies": {
+    "react": "^15.3.1"
+  }
 }
