@@ -1,0 +1,22 @@
+{
+  "name": "nilni.github.io",
+  "version": "1.0.0",
+  "description": "zhihaoni.com",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilni/nilni.github.io.git"
+  },
+  "keywords": [
+    "zhihaoni.com"
+  ],
+  "author": "nil.ni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nilni/nilni.github.io/issues"
+  },
+  "homepage": "https://github.com/nilni/nilni.github.io#readme"
+}
