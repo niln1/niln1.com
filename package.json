@@ -23,5 +23,9 @@
   "homepage": "https://github.com/nilni/niln1.com#readme",
   "dependencies": {
     "react": "^15.3.1"
+  },
+  "devDependencies": {
+    "glob": "^7.0.6",
+    "marked": "^0.3.6"
   }
 }
