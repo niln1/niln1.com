@@ -7,17 +7,16 @@
 'use strict'
 
 // const cheerio = require('cheerio')
-// const async = require('async')
+const async = require('async')
 const marked = require('marked')
 const fs = require('fs')
 const glob = require("glob")
 
 // options is optional
-glob("**/*.md", {
-  ignore: "**node_modules**"
-}, function (er, files) {
+glob("src/*/*.md", {}, function (er, files) {
   console.log(er)
   console.log(files)
+  createPostFromMarkdownFile(files[0])
   // files is an array of filenames.
   // If the `nonull` option is set, and nothing
   // was found, then files is ["**/*.js"]
@@ -25,6 +24,34 @@ glob("**/*.md", {
 })
 
 console.log('Building Markdown 📑')
+
+function createPostFromMarkdownFile(filename, done) {
+  // Read file, Covert to HTML, Write to HTML in correct location
+
+  new Promise(done => {
+    fs.readFile(filename, 'utf8', (err, file) => {
+      if (err) throw err
+      const body = marked(file, { smartypants: true })
+      const filename
+      return done(body)
+    })
+  })
+  .then(body => {
+    console.log(body)
+    return body
+  }).catch(err => console.log("rejected:", err));
+
+}
+
+// function createPostFromMarkdownFile(filename, done){
+//   fs.readFile(filename, 'utf8', (err, file) => {
+//     if (err) throw err
+//     const body      = marked(file, { smartypants: true })
+//     return body
+//   })
+// }
+
+// function createIndexPage(markdowns, )
 // async.map(posts, renderPost, (err, posts) => {
 //   if (err) throw err
 //
