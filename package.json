@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Travis is awesome\"",
+    "build": "npm run build:markdown && npm run copy-assets",
     "build:markdown": "./build/markdown.js",
     "copy-assets": "cp src/index.html public && cp src/style.css public"
   },

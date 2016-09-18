@@ -32,7 +32,7 @@ function createPostFromMarkdownFile(filename, done) {
     fs.readFile(filename, 'utf8', (err, file) => {
       if (err) throw err
       const body = marked(file, { smartypants: true })
-      const filename
+      // const filename =
       return done(body)
     })
   })
