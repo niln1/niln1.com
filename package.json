@@ -1,7 +1,7 @@
 {
   "name": "nilni.github.io",
   "version": "1.0.0",
-  "description": "zhihaoni.com",
+  "description": "niln1.com",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Travis is awesome\"",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/nilni/niln1.com.git"
   },
   "keywords": [
-    "zhihaoni.com"
+    "niln1.com"
   ],
   "author": "nil.ni",
   "license": "ISC",
