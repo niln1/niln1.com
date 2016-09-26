@@ -25,20 +25,29 @@ glob("src/*/*.md", {}, function (er, files) {
 
 console.log('Building Markdown 📑')
 
-function createPostFromMarkdownFile(filename, done) {
+function createPostFromMarkdownFile(filename, finalDone) {
   // Read file, Covert to HTML, Write to HTML in correct location
 
-  new Promise(done => {
+  return new Promise(done => {
     fs.readFile(filename, 'utf8', (err, file) => {
       if (err) throw err
-      const body = marked(file, { smartypants: true })
-      // const filename =
-      return done(body)
+      return done({
+        filename: filename.replace('src', 'public').replace('md', 'html'),
+        body: marked(file, { smartypants: true })
+      })
     })
   })
-  .then(body => {
-    console.log(body)
-    return body
+  .then((data) => {
+    const filename = data.filename
+    const body = data.body
+    
+    return new Promise(done => {
+      fs.writeFile(filename, body, (err) => {
+        if (err) throw err
+        console.log(`✅  ${filename} created`)
+        return done(filename, body)
+      })
+    })
   }).catch(err => console.log("rejected:", err));
 
 }
