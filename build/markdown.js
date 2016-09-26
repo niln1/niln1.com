@@ -10,7 +10,8 @@
 const async = require('async')
 const marked = require('marked')
 const fs = require('fs')
-const glob = require("glob")
+const glob = require('glob')
+const ejs = require('ejs')
 
 // options is optional
 glob("src/*/*.md", {}, function (er, files) {
@@ -48,7 +49,7 @@ function createPostFromMarkdownFile(filename, finalDone) {
 
     return new Promise(done => {
       // TODO: render to template
-      ejs.renderFile('./templates/post.html', context, (err, post) => {
+      ejs.renderFile(template, context, (err, post) => {
         if (err) throw err
         return done({
           filename,
