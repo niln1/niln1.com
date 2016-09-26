@@ -41,8 +41,17 @@ function createPostFromMarkdownFile(filename, finalDone) {
   .then((data) => {
     const filename = data.filename
     const body = data.body
-    body.append(new Date())
-
+    // body.append(new Date())
+    const context = {
+      body,
+      title
+    }
+    const templatePath = filename.split('/').pop().push('template.ejs').join('/')
+    console.log(templatePath)
+    return data
+    // ejs.renderFile('./templates/post.html'
+  })
+  .then((data) => {
     return new Promise(done => {
       // TODO: render to template
       fs.writeFile(filename, body, 'utf8', (err) => {
