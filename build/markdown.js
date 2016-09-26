@@ -14,9 +14,6 @@ const glob = require("glob")
 
 // options is optional
 glob("src/*/*.md", {}, function (er, files) {
-  console.log(er)
-  console.log(files)
-
   createPostFromMarkdownFile(files[0])
   // files is an array of filenames.
   // If the `nonull` option is set, and nothing
@@ -33,6 +30,7 @@ function createPostFromMarkdownFile(filename, finalDone) {
     fs.readFile(filename, 'utf8', (err, file) => {
       if (err) throw err
       return done({
+        template: filename.split('/').slice(0, -1).concat('template.ejs').join('/'),
         filename: filename.replace(/src/, 'public').replace(/md$/, 'html'), // change to r
         body: marked(file, { smartypants: true })
       })
@@ -41,13 +39,22 @@ function createPostFromMarkdownFile(filename, finalDone) {
   .then((data) => {
     const filename = data.filename
     const body = data.body
+    const template = data.template
     // body.append(new Date())
     const context = {
       body,
-      title
+      title: 'yo'
     }
-    const templatePath = filename.split('/').pop().push('template.ejs').join('/')
-    console.log(templatePath)
+
+    return new Promise(done => {
+      // TODO: render to template
+      fs.writeFile(filename, body, 'utf8', (err) => {
+        if (err) throw err
+        console.log(`✅  ${filename} created`)
+        return done(filename)
+      })
+    })
+
     return data
     // ejs.renderFile('./templates/post.html'
   })
@@ -60,8 +67,10 @@ function createPostFromMarkdownFile(filename, finalDone) {
         return done(filename)
       })
     })
-  }).catch(err => console.log("rejected:", err));
-
+  }).catch(err => {
+    console.log("rejected:", err)
+    throw err
+  });
 }
 
 // function createPostFromMarkdownFile(filename, done){
