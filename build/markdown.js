@@ -48,20 +48,23 @@ function createPostFromMarkdownFile(filename, finalDone) {
 
     return new Promise(done => {
       // TODO: render to template
-      fs.writeFile(filename, body, 'utf8', (err) => {
+      ejs.renderFile('./templates/post.html', context, (err, post) => {
         if (err) throw err
-        console.log(`✅  ${filename} created`)
-        return done(filename)
+        return done({
+          filename,
+          post
+        })
       })
     })
 
     return data
-    // ejs.renderFile('./templates/post.html'
   })
   .then((data) => {
+    const filename = data.filename
+    const post = data.post
     return new Promise(done => {
       // TODO: render to template
-      fs.writeFile(filename, body, 'utf8', (err) => {
+      fs.writeFile(filename, post, 'utf8', (err) => {
         if (err) throw err
         console.log(`✅  ${filename} created`)
         return done(filename)
