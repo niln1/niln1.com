@@ -43,21 +43,15 @@ function generateStaticPagesFromMarkDowns() {
 function createPostFromMarkdownFile(filename) {
   // Read file, Covert to HTML, Write to HTML in correct location
   console.log(`Creating files for ${filename}`)
-  return new Promise(done => {
-    fs.readFile(filename, 'utf8', (err, file) => {
-      if (err) throw err
-      return done({
-        template: filename.split('/').slice(0, -1).concat('template.ejs').join('/'),
-        filename: filename.replace(/src/, 'public').replace(/md$/, 'html'), // change to r
-        body: marked(file, { smartypants: true })
-      })
-    })
-  })
-  .then((data) => {
-    const filename = data.filename
-    const body = data.body
-    const template = data.template
-    // body.append(new Date())
+  return Promise.all([
+    fileStatPromise(filename),
+    readFilePromise(filename)
+  ]).then((data) => {
+    const fileStat = data[0]
+    const fileData = data[1]
+    const filename = fileData.filename
+    const body = fileData.body
+    const template = fileData.template
     const context = {
       body,
       title: 'yo'
@@ -92,6 +86,28 @@ function createPostFromMarkdownFile(filename) {
     console.log("rejected:", err)
     throw err
   });
+}
+
+function readFilePromise(filename) {
+  return new Promise(resolve => {
+    fs.readFile(filename, 'utf8', (err, file) => {
+      if (err) throw err
+      return resolve({
+        template: filename.split('/').slice(0, -1).concat('template.ejs').join('/'),
+        filename: filename.replace(/src/, 'public').replace(/md$/, 'html'), // change to r
+        body: marked(file, { smartypants: true })
+      })
+    })
+  })
+}
+
+function fileStatPromise(filename) {
+  return new Promise(resolve => {
+    fs.stat(filename, (err, fileStat) => {
+      if (err) throw err
+      return resolve(fileStat)
+    })
+  })
 }
 
 generateStaticPagesFromMarkDowns()
