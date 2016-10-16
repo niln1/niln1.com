@@ -15,7 +15,22 @@ const ejs = require('ejs')
 
 // options is optional
 glob("src/*/*.md", {}, function (er, files) {
-  createPostFromMarkdownFile(files[0])
+  /**
+  * TODO :
+  * grab all files
+  * figure out the folder
+  * for each folder:
+  *   convert md to html, and add to template
+  **/
+
+  Promise.all([
+    done => fs.stat(files[0], done),
+    done => fs.readFile(files[0], 'utf8', done)
+  ]).then((data) => {
+    console.log(data[0])
+    console.log(data[1])
+  })
+  // createPostFromMarkdownFile(files[0])
   // files is an array of filenames.
   // If the `nonull` option is set, and nothing
   // was found, then files is ["**/*.js"]
@@ -45,6 +60,7 @@ function createPostFromMarkdownFile(filename, finalDone) {
     const context = {
       body,
       title: 'yo'
+      // lastUpdate:
     }
 
     return new Promise(done => {
