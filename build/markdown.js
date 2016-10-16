@@ -14,34 +14,35 @@ const glob = require('glob')
 const ejs = require('ejs')
 
 // options is optional
-glob("src/*/*.md", {}, function (er, files) {
-  /**
-  * TODO :
-  * grab all files
-  * figure out the folder
-  * for each folder:
-  *   convert md to html, and add to template
-  **/
+// promise is not the answer
 
-  Promise.all([
-    done => fs.stat(files[0], done),
-    done => fs.readFile(files[0], 'utf8', done)
-  ]).then((data) => {
-    console.log(data[0])
-    console.log(data[1])
+// grab all files done
+function generateStaticPagesFromMarkDowns() {
+    glob("src/*/*.md", {}, function (er, files) {
+
+      console.log(files)
+      return Promise.all(files.map(createPostFromMarkdownFile)).then(value => {
+        console.log('Files Created', value);
+      }, reason => {
+        console.log(reason)
+      });
+
+    // createPostFromMarkdownFile(files[0])
+    // files is an array of filenames.
+    // If the `nonull` option is set, and nothing
+    // was found, then files is ["**/*.js"]
+    // er is an error object or null.
   })
-  // createPostFromMarkdownFile(files[0])
-  // files is an array of filenames.
-  // If the `nonull` option is set, and nothing
-  // was found, then files is ["**/*.js"]
-  // er is an error object or null.
-})
+}
 
-console.log('Building Markdown 📑')
-
-function createPostFromMarkdownFile(filename, finalDone) {
+/**
+* For Each file, switch src to public then
+*   convert md to html, and add to template
+*   bad sf design
+**/
+function createPostFromMarkdownFile(filename) {
   // Read file, Covert to HTML, Write to HTML in correct location
-
+  console.log(`Creating files for ${filename}`)
   return new Promise(done => {
     fs.readFile(filename, 'utf8', (err, file) => {
       if (err) throw err
@@ -92,6 +93,45 @@ function createPostFromMarkdownFile(filename, finalDone) {
     throw err
   });
 }
+
+generateStaticPagesFromMarkDowns()
+
+console.log('Building Markdown 📑')
+
+function renderPost(path, done) {
+  const filename = `writing/${path}`
+
+  async.parallel({
+    stats: done => fs.stat(filename, done),
+    post: done => fs.readFile(filename, 'utf8', done)
+  }, (err, results) => {
+    if (err) return done(err)
+
+    const body      = marked(results.post, { smartypants: true }) // what is smartypants?
+    const permalink = filename.replace(/md$/, 'html')
+    const slug      = path.replace('.md', '')
+    const title     = (results.post.split('\n')[0] || 'Untitled 👻').replace('##', '')
+    const updatedAt = results.stats.mtime
+
+    const context = {
+      body,
+      filename,
+      permalink,
+      slug,
+      title,
+      updatedAt
+    }
+
+    ejs.renderFile('./templates/post.html', context, (err, data) => {
+      fs.writeFile(permalink, data, (err) => {
+        done(err, context)
+        console.log(`✅  writing/${filename} -> ${permalink}`)
+      })
+    })
+  })
+}
+
+
 
 // function createPostFromMarkdownFile(filename, done){
 //   fs.readFile(filename, 'utf8', (err, file) => {
