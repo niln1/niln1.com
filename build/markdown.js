@@ -52,14 +52,15 @@ function createPostFromMarkdownFile(filename) {
     const filename = fileData.filename
     const body = fileData.body
     const template = fileData.template
+
     const context = {
       body,
-      title: 'yo'
-      // lastUpdate:
+      title: filename.split('/').pop().split('.')[0] || '', // Get File Name without extension
+      mtime: fileStat.mtime,
+      btime: fileStat.birthtime
     }
 
     return new Promise(done => {
-      // TODO: render to template
       ejs.renderFile(template, context, (err, post) => {
         if (err) throw err
         return done({
