@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Thoughts</title>
+  <meta name="author" content="Nil Ni">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <ol>
+  <% files.forEach(function(file, index) { %>
+    <li>
+      <%- file.context.body -%>
+      <div id="mtime"> Last Modified Time: <%= file.context.mtime %> </div>
+      <div id="btime"> Created at: <%= file.context.btime %> </div>
+    </li>
+  <% }) %>
+
+  </ol>
+</body>
+</html>
