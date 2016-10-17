@@ -24,12 +24,46 @@ function generateStaticPagesFromMarkDowns(module) {
       return Promise.all(files.map(createPostFromMarkdownFile))
       .then((value) => {
         console.log('Files Created', value);
-        return new Promise(files.map(createPostFromMarkdownFile))
-      });
+        return createIndexPage(value, module)
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log("rejected:", err)
+        throw err
+      })
   })
 }
 
-function createIndexPage()
+function createIndexPage(files, module) {
+  console.log('u')
+  return new Promise(done => {
+    ejs.renderFile(`src/${module}/index.ejs`, {
+      files
+    }, (err, post) => {
+      if (err) throw err
+      return done({
+        filename: `public/${module}/index.html`,
+        post
+      })
+    })
+  })
+  .then((data) => {
+    const filename = data.filename
+    const post = data.post
+    return new Promise(done => {
+      // TODO: render to template
+      fs.writeFile(filename, post, 'utf8', (err) => {
+        if (err) throw err
+        console.log(`✅  ${filename} created`)
+        return done({
+          filename
+        })
+      })
+    })
+  })
+}
 
 /**
 * For Each file, switch src to public then
@@ -75,6 +109,7 @@ function createPostFromMarkdownFile(filename) {
     const post = data.post
     const context = data.context
 
+    // reuse
     return new Promise(done => {
       // TODO: render to template
       fs.writeFile(filename, post, 'utf8', (err) => {
