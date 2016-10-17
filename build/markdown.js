@@ -44,7 +44,7 @@ function createIndexPage(files, module) {
     }, (err, post) => {
       if (err) throw err
       return done({
-        filename: `public/${module}/index.html`,
+        filename: `docs/${module}/index.html`,
         post
       })
     })
@@ -66,7 +66,7 @@ function createIndexPage(files, module) {
 }
 
 /**
-* For Each file, switch src to public then
+* For Each file, switch src to docs then
 *   convert md to html, and add to template
 *   bad sf design
 **/
@@ -134,7 +134,7 @@ function readFilePromise(filename) {
       if (err) throw err
       return resolve({
         template: filename.split('/').slice(0, -1).concat('template.ejs').join('/'),
-        filename: filename.replace(/src/, 'public').replace(/md$/, 'html'), // change to r
+        filename: filename.replace(/src/, 'docs').replace(/md$/, 'html'), // change to r
         body: marked(file, { smartypants: true })
       })
     })
