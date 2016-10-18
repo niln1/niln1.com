@@ -37,7 +37,6 @@ function generateStaticPagesFromMarkDowns(module) {
 }
 
 function createIndexPage(files, module) {
-  console.log('u')
   return new Promise(done => {
     ejs.renderFile(`src/${module}/index.ejs`, {
       files

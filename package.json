@@ -7,7 +7,7 @@
     "test": "echo \"Travis is awesome\"",
     "build": "npm run build:markdown && npm run copy-assets",
     "build:markdown": "./build/markdown.js",
-    "copy-assets": "cp src/index.html public && cp src/style.css public"
+    "copy-assets": "cp src/index.html docs && cp src/style.css docs"
   },
   "repository": {
     "type": "git",
