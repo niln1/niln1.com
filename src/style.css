@@ -1,3 +1,10 @@
+@import '../node_modules/tachyons/css/tachyons.css';
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont,
     "Open Sans",
@@ -5,3 +12,7 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
 }
+
+h1 { @extend .f1; }
+h2 { @extend .f2; }
+h3 { @extend .f3; }

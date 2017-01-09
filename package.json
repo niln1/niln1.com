@@ -5,9 +5,10 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Travis is awesome\"",
-    "build": "npm run build:markdown && npm run copy-assets",
+    "build": "npm run build:css && npm run build:markdown && npm run copy-assets",
+    "build:css": "./build/postcss.sh",
     "build:markdown": "./build/markdown.js",
-    "copy-assets": "cp src/index.html docs && cp src/style.css docs"
+    "copy-assets": "cp src/index.html docs && cp src/ga.js docs"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,19 @@
   },
   "homepage": "https://github.com/nilni/niln1.com#readme",
   "dependencies": {
-    "react": "^15.3.1"
+    "postcss-url": "^5.1.2",
+    "react": "^15.3.1",
+    "tachyons": "^4.6.1"
   },
   "devDependencies": {
     "async": "^2.0.1",
+    "autoprefixer": "^6.6.1",
     "glob": "^7.0.6",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "postcss": "^5.2.8",
+    "postcss-cli": "^2.6.0",
+    "postcss-csso": "^1.1.2",
+    "postcss-extend": "^1.0.5",
+    "postcss-import": "^9.0.0"
   }
 }
