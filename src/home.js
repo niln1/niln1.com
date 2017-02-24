@@ -1,15 +1,15 @@
 var Trianglify = require('trianglify');
 
+var gold = 1.61803
+var gold_inv = 0.61803
+var scale = 88
+
 function render(seed) {
-  var gold = 1.61803
-  var gold_inv = 0.61803
-  var scale = 88
   if (window.innerWidth < 600) {
     scale = Math.min(window.innerWidth, window.innerHeight) / (gold^5)
   } else {
     scale = Math.min(window.innerWidth, window.innerHeight) / (gold^8)
   }
-  console.log(scale)
   var pattern = Trianglify({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -22,7 +22,7 @@ function render(seed) {
 }
 
 render()
-var time = 618.03
+var time = 1618.03
 setInterval(render, time)
 setTimeout(setInterval(render, time/gold), time/gold);
 setTimeout(setInterval(render, time/gold_inv), time/gold_inv);
