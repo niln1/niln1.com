@@ -9,7 +9,7 @@
     "build:js": "webpack -p",
     "build:css": "./build/postcss.sh",
     "build:markdown": "./build/markdown.js",
-    "copy-assets": "cp src/index.html docs && cp src/ga.js docs"
+    "copy-assets": "cp src/index.html docs && cp src/ga.js docs && cp -rf src/food/ docs/food"
   },
   "repository": {
     "type": "git",
