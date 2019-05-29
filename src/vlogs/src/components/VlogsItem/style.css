@@ -1,0 +1,221 @@
+.vlog-item {
+    display: flex;
+    flex: 1 1 auto;
+    margin: 0 var(--gutter) calc(var(--gutter)*2);
+    width: calc(var(--column-width) - var(--gutter)*2);
+}
+
+.vlog {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    border: 1px solid var(--light);
+}
+
+.vlog:hover {
+    border-color: var(--yellow)
+}
+
+.vlog:hover .badge {
+    color: var(--black);
+    --badge-color:var(--yellow)
+}
+
+@media (any-hover: hover) {
+    .vlog:hover:after {
+        content:attr(href);
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: calc(var(--gutter)/6) calc(var(--gutter)/3);
+        background: var(--white);
+        color: var(--black);
+        font-size: .8em;
+        white-space: nowrap;
+        -webkit-transform: translate(var(--x),var(--y));
+        transform: translate(var(--x),var(--y));
+        will-change: transform;
+        z-index: 2
+    }
+}
+
+.vlog__row--border {
+    border-bottom: 1px solid var(--light);
+}
+
+.vlog__row {
+    padding: calc(var(--gutter)*0.5);
+    padding-bottom: 0;
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: .8em;
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing);
+    line-height: 1;
+    font-family: "Hiragino Sans GB";
+}
+
+.title {
+    font-size: 1.2em;
+    font-family: "Hiragino Sans GB";
+}
+
+.vlog__description {
+    letter-spacing: var(--letter-spacing);
+}
+
+@-webkit-keyframes identifier {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+    }
+}
+
+@keyframes identifier {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+    }
+}
+
+.badge {
+    --badge-size: 90px;
+    --badge-color: var(--white);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: calc(var(--gutter)*-1);
+    right: calc(var(--gutter)*-1);
+    width: var(--badge-size);
+    height: var(--badge-size);
+    background: var(--black);
+    border-radius: 100%;
+    box-shadow: inset 0 0 0 .9rem var(--badge-color);
+    -webkit-animation: identifier 20s linear infinite;
+    animation: identifier 20s linear infinite;
+}
+
+.char1 {
+    --char-rotate: 18.94736842105263deg;
+}
+
+.char2 {
+    --char-rotate: 37.89473684210526deg;
+}
+
+.char3 {
+    --char-rotate: 56.84210526315789deg;
+}
+
+.char4 {
+    --char-rotate: 75.78947368421052deg;
+}
+
+.char5 {
+    --char-rotate: 94.73684210526315deg;
+}
+
+.char6 {
+    --char-rotate: 113.68421052631578deg;
+}
+
+.char7 {
+    --char-rotate: 132.6315789473684deg;
+}
+
+.char8 {
+    --char-rotate: 151.57894736842104deg;
+}
+
+.char9 {
+    --char-rotate: 170.52631578947367deg;
+}
+
+.char10 {
+    --char-rotate: 189.4736842105263deg;
+}
+
+.char11 {
+    --char-rotate: 208.42105263157893deg;
+}
+
+.char12 {
+    --char-rotate: 227.36842105263156deg;
+}
+
+.char13 {
+    --char-rotate: 246.3157894736842deg;
+}
+
+.char14 {
+    --char-rotate: 265.2631578947368deg;
+}
+
+.char15 {
+    --char-rotate: 284.2105263157895deg;
+}
+
+.char16 {
+    --char-rotate: 303.1578947368421deg;
+}
+
+.char17 {
+    --char-rotate: 341.05263157894734deg;
+}
+
+.char18 {
+    --char-rotate: 360deg;
+}
+
+
+
+
+.badge__char {
+    --char-width: 10px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(50% - var(--char-width)/2);
+    height: calc(var(--badge-size)/2);
+    width: var(--char-width);
+    background-repeat: round;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1rem;
+    font-size: .6em;
+    -webkit-transform-origin: bottom center;
+    transform-origin: bottom center;
+    -webkit-transform: rotate(var(--char-rotate));
+    transform: rotate(var(--char-rotate));
+}
+
+.badge--transparent {
+    --badge-color: transparent;
+}
+
+.badge__emoji {
+    width: 36px;
+    height: 36px;
+    display: block;
+    margin: 0;
+    -webkit-animation: identifier 20s linear infinite;
+    animation: identifier 20s linear infinite;
+    animation-direction: reverse;
+}
+
+
