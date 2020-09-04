@@ -35,7 +35,7 @@
     "async": "^2.0.1",
     "autoprefixer": "^6.6.1",
     "glob": "^7.0.6",
-    "marked": "^0.6.2",
+    "marked": "^0.7.0",
     "postcss": "^5.2.8",
     "postcss-cli": "^2.6.0",
     "postcss-csso": "^1.1.2",
