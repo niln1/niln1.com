@@ -3,10 +3,24 @@
     <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        #clock {
+            font-size: 60px;
+        }
+        #date {
+            font-size: 40px;
+        }
+        .center {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
     </head>
     <body>
-        <div id="date"></div>
-        <div id="clock"></div>
+        <div id="clock" class="center"></div>
+        <div id="date" class="center"><<div>
         <div id="my_dataviz"></div>
 
         <script>
@@ -15,7 +29,7 @@
             }, 1000);
 
             function myTimer() {
-            var date = moment().utcOffset(-7).format("dddd, MMMM Do YYYY");
+            var date = moment().utcOffset(-7).format("ddd, MMM Do YYYY");
             var time = moment().utcOffset(-7).format("h:mm:ss a");
                 document.getElementById("date").innerHTML = date;
                 document.getElementById("clock").innerHTML = time;
