@@ -1,1 +1,15 @@
-Hello World
+<!doctype html>
+<html>
+    <head></head>
+    <body>
+        哈哈哈 你好啊
+        Seconds since page loaded: <span id="time">0</span>
+        <script type="text/javascript">
+            var time = 0;
+            setInterval(function() {
+                time += 1;
+                document.getElementById("time").innerText = time;
+            }, 1000);
+        </script>
+    </body>
+</html>
