@@ -2,6 +2,12 @@
 <html>
     <head>
     <script src="https://d3js.org/d3.v4.js"></script>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+
+
+
+
             <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
 
 
@@ -17,8 +23,8 @@
 }, 1000);
 
 function myTimer() {
-  var d = new Date();
-  document.getElementById("clock").innerHTML = d.toLocaleTimeString();
+  var d = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  document.getElementById("clock").innerHTML = d;
 }
 
 // set the dimensions and margins of the graph
