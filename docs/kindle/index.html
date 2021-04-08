@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+    <meta charset="utf-8"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <style>
@@ -16,13 +17,24 @@
             text-align: center;
             padding: 10px;
         }
+        .center-table {
+            margin: auto;
+            width: 90%;
+            text-align: center;
+            padding: 10px;
+        }
+        #table thead {
+            font-size: 60px;
+        }
+        #table tbody {
+            font-size: 40px;
+        }
     </style>
     </head>
     <body>
         <div id="clock" class="center"></div>
-        <div id="date" class="center"><div>
-        <div id="my_dataviz"></div>
-
+        <div id="date" class="center"></div>
+        <table id="table" class="center-table"></table>
         <script>
             var myVar = setInterval(function() {
                 myTimer();
@@ -56,17 +68,15 @@
                     window.gapi.client.sheets.spreadsheets.values
                     .get({
                         spreadsheetId: config.spreadsheetId,
-                        range: "Sheet1!A2:D"
+                        range: "Badge2021!A2:B"
                     })
                     .then(
                         response => {
                         const data = response.result.values;
 
                         const result = data.map(d => ({
-                            Date: d[0],
-                            Income: parseFloat(d[1]),
-                            Spent: parseFloat(d[2]),
-                            Cashflow: parseFloat(d[3]),
+                            "目标": d[0],
+                            "记录": d[1],
                         })) || [];
                             
                         callback(result);
@@ -92,9 +102,40 @@
             window.ol = function (data, error) {
                 if (data) {
                     console.log(data);
+                    generateTableStart(data);
                 } else {
                     console.log(error);
                 }
+            }
+
+            window.generateTableStart = function (data) {
+                function generateTableHead(table, data) {
+                    let thead = table.createTHead();
+                    let row = thead.insertRow();
+                    for (let key of data) {
+                        let th = document.createElement("th");
+                        let text = document.createTextNode(key);
+                        th.appendChild(text);
+                        row.appendChild(th);
+                    }
+                }
+
+                function generateTable(table, data) {
+                    let tbody = table.createTBody();
+                    for (let element of data) {
+                        let row = tbody.insertRow();
+                        for (key in element) {
+                            let cell = row.insertCell();
+                            let text = document.createTextNode(element[key]);
+                            cell.appendChild(text);
+                        }
+                    }
+                }
+
+                let table = document.getElementById("table");
+                let keys = Object.keys(data[0]);
+                generateTableHead(table, keys);
+                generateTable(table, data);
             }
 
             window.gapi.load("client", haha);
