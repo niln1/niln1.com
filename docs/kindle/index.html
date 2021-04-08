@@ -7,11 +7,7 @@
 </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            const config = {
-            type: 'line',
-              data,
-              options: {}
-            };
+
 
             const labels = [
               'January',
@@ -29,6 +25,12 @@
                 borderColor: 'rgb(255, 99, 132)',
                 data: [0, 10, 5, 2, 20, 30, 45],
               }]
+            };
+            
+                        const config = {
+            type: 'line',
+              data,
+              options: {}
             };
             
             var myChart = new Chart(
