@@ -13,7 +13,7 @@
 
     </head>
     <body>
-        
+        <p id="date"></p>
         <p id="clock"></p>
         <div id="my_dataviz"></div>
 
@@ -23,8 +23,10 @@
 }, 1000);
 
 function myTimer() {
-  var d = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-  document.getElementById("clock").innerHTML = d;
+  var date = moment().utcOffset(8).format("dddd, MMMM Do YYYY");
+  var time = moment().utcOffset(8).format("h:mm:ss a");
+    document.getElementById("date").innerHTML = date;
+    document.getElementById("clock").innerHTML = time;
 }
 
 // set the dimensions and margins of the graph
