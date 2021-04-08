@@ -23,8 +23,8 @@
 }, 1000);
 
 function myTimer() {
-  var date = moment().utcOffset(8).format("dddd, MMMM Do YYYY");
-  var time = moment().utcOffset(8).format("h:mm:ss a");
+  var date = moment().utcOffset(0).format("dddd, MMMM Do YYYY");
+  var time = moment().utcOffset(0).format("h:mm:ss a");
     document.getElementById("date").innerHTML = date;
     document.getElementById("clock").innerHTML = time;
 }
