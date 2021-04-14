@@ -6,23 +6,34 @@
     <style>
         body {
             background: #000;
+            margin: 0;
+            padding: 0;
         }
 
         #section1 {
+            position: absolute;
+            width: 100%;
             height: 512px;
             background: white;
         }
 
         #section2 {
+            position: absolute;
+            width: 100%;
+            top: 512px;
             height: 512px;
         }
 
         main {
-            height: 150px;
+            height: 300px;
+            width: 512px;
             position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
         }
 
         main time {
@@ -31,7 +42,7 @@
 
         time {
             display: block;
-            width: 700px;
+            width: 500px;
             text-align: center;
             color: white;
             font-size: 10rem;
@@ -42,7 +53,7 @@
         button {
             padding: 1em 2em;
             position: absolute;
-            bottom: -160px;
+            bottom: 0;
             color: black;
             border: 1px solid white;
             border-radius: .5em;
@@ -67,11 +78,15 @@
         }
 
         #second {
-            height: 150px;
+            height: 300px;
+            width: 512px;
             position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
         }
 
         #second #toggle2 {
@@ -96,7 +111,7 @@
 
     <div id="section1">
         <main>
-            <time id="timer">0:00:00.00</time>
+            <time id="timer">0:00:00</time>
             <button id="toggle">start</button>
             <button id="clear">clear</button>
         </main>
@@ -105,7 +120,7 @@
 
     <div id="section2">
         <div id="second">
-            <time id="timer2">0:00:00.00</time>
+            <time id="timer2">0:00:00</time>
             <button id="toggle2">start</button>
             <button id="clear2">clear</button>
         </div>
@@ -170,7 +185,7 @@
             var run = function () {
                 // get output array and print
                 var time = parseTime(Date.now() - then - delay);
-                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2] + '.' + time[3];
+                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2];
             };
 
 
@@ -202,7 +217,7 @@
                 running = false;
                 paused = false;
                 toggle.innerHTML = 'start';
-                output.innerHTML = '0:00:00.00';
+                output.innerHTML = '0:00:00';
                 clear.dataset.state = '';
             };
 
@@ -277,7 +292,7 @@
             var run = function () {
                 // get output array and print
                 var time = parseTime(Date.now() - then - delay);
-                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2] + '.' + time[3];
+                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2];
             };
 
 
@@ -309,7 +324,7 @@
                 running = false;
                 paused = false;
                 toggle.innerHTML = 'start';
-                output.innerHTML = '0:00:00.00';
+                output.innerHTML = '0:00:00';
                 clear.dataset.state = '';
             };
 
