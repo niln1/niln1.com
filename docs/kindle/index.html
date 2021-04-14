@@ -24,7 +24,353 @@
             height: 512px;
         }
 
+        main {<!doctype html>
+<html>
+<!-- this is for kindle web browser -->
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        #section1 {
+            position: absolute;
+            width: 100%;
+            height: 512px;
+            background: white;
+        }
+
+        #section2 {
+            position: absolute;
+            width: 100%;
+            top: 512px;
+            height: 512px;
+        }
+
         main {
+            height: 300px;
+            width: 512px;
+            position: absolute;
+            top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        main time {
+            color: black;
+        }
+
+        time {
+            display: block;
+            width: 500px;
+            text-align: center;
+            color: white;
+            font-size: 100px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            position: absolute;
+            bottom: 0;
+            color: black;
+            border: 1px solid white;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-size: 45px;
+        }
+
+        main #toggle {
+            right: 0;
+        }
+
+        main #clear {
+            transition: all 300ms cubic-bezier(0.4, 0.25, 0.3, 1);
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        main #clear[data-state='visible'] {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #second {
+            height: 300px;
+            width: 512px;
+            position: absolute;
+            top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        #second #toggle2 {
+            right: 0;
+        }
+
+        #second #clear2 {
+            transition: all 300ms cubic-bezier(0.4, 0.25, 0.3, 1);
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #second #clear2[data-state='visible'] {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="section1">
+        <main>
+            <time id="timer">0:00:00</time>
+            <button id="toggle">start</button>
+            <button id="clear">clear</button>
+        </main>
+
+    </div>
+
+    <div id="section2">
+        <div id="second">
+            <time id="timer2">0:00:00</time>
+            <button id="toggle2">start</button>
+            <button id="clear2">clear</button>
+        </div>
+
+    </div>
+
+
+    <script>
+        (function timer() {
+            'use strict';
+
+            //declare
+            var output = document.getElementById('timer');
+            var toggle = document.getElementById('toggle');
+            var clear = document.getElementById('clear');
+            var running = false;
+            var paused = false;
+            var timer;
+
+            // timer start time
+            var then;
+            // pause duration
+            var delay;
+            // pause start time
+            var delayThen;
+
+
+            // start timer
+            var start = function () {
+                delay = 0;
+                running = true;
+                then = Date.now();
+                timer = setInterval(run, 51);
+                toggle.innerHTML = 'stop';
+            };
+
+
+            // parse time in ms for output
+            var parseTime = function (elapsed) {
+                // array of time multiples [hours, min, sec, decimal]
+                var d = [3600000, 60000, 1000, 10];
+                var time = [];
+                var i = 0;
+
+                while (i < d.length) {
+                    var t = Math.floor(elapsed / d[i]);
+
+                    // remove parsed time for next iteration
+                    elapsed -= t * d[i];
+
+                    // add '0' prefix to m,s,d when needed
+                    t = (i > 0 && t < 10) ? '0' + t : t;
+                    time.push(t);
+                    i++;
+                }
+
+                return time;
+            };
+
+
+            // run
+            var run = function () {
+                // get output array and print
+                var time = parseTime(Date.now() - then - delay);
+                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2];
+            };
+
+
+            // stop
+            var stop = function () {
+                paused = true;
+                delayThen = Date.now();
+                toggle.innerHTML = 'resume';
+                clear.dataset.state = 'visible';
+                clearInterval(timer);
+
+                // call one last time to print exact time
+                run();
+            };
+
+
+            // resume
+            var resume = function () {
+                paused = false;
+                delay += Date.now() - delayThen;
+                timer = setInterval(run, 51);
+                toggle.innerHTML = 'stop';
+                clear.dataset.state = '';
+            };
+
+
+            // clear
+            var reset = function () {
+                running = false;
+                paused = false;
+                toggle.innerHTML = 'start';
+                output.innerHTML = '0:00:00';
+                clear.dataset.state = '';
+            };
+
+
+            // evaluate and route
+            var router = function () {
+                if (!running) start();
+                else if (paused) resume();
+                else stop();
+            };
+
+            toggle.addEventListener('click', router);
+            clear.addEventListener('click', reset);
+
+        })();
+    </script>
+
+    <script>
+        (function timer() {
+            'use strict';
+
+            //declare
+            var output = document.getElementById('timer2');
+            var toggle = document.getElementById('toggle2');
+            var clear = document.getElementById('clear2');
+            var running = false;
+            var paused = false;
+            var timer;
+
+            // timer start time
+            var then;
+            // pause duration
+            var delay;
+            // pause start time
+            var delayThen;
+
+
+            // start timer
+            var start = function () {
+                delay = 0;
+                running = true;
+                then = Date.now();
+                timer = setInterval(run, 51);
+                toggle.innerHTML = 'stop';
+            };
+
+
+            // parse time in ms for output
+            var parseTime = function (elapsed) {
+                // array of time multiples [hours, min, sec, decimal]
+                var d = [3600000, 60000, 1000, 10];
+                var time = [];
+                var i = 0;
+
+                while (i < d.length) {
+                    var t = Math.floor(elapsed / d[i]);
+
+                    // remove parsed time for next iteration
+                    elapsed -= t * d[i];
+
+                    // add '0' prefix to m,s,d when needed
+                    t = (i > 0 && t < 10) ? '0' + t : t;
+                    time.push(t);
+                    i++;
+                }
+
+                return time;
+            };
+
+
+            // run
+            var run = function () {
+                // get output array and print
+                var time = parseTime(Date.now() - then - delay);
+                output.innerHTML = time[0] + ':' + time[1] + ':' + time[2];
+            };
+
+
+            // stop
+            var stop = function () {
+                paused = true;
+                delayThen = Date.now();
+                toggle.innerHTML = 'resume';
+                clear.dataset.state = 'visible';
+                clearInterval(timer);
+
+                // call one last time to print exact time
+                run();
+            };
+
+
+            // resume
+            var resume = function () {
+                paused = false;
+                delay += Date.now() - delayThen;
+                timer = setInterval(run, 51);
+                toggle.innerHTML = 'stop';
+                clear.dataset.state = '';
+            };
+
+
+            // clear
+            var reset = function () {
+                running = false;
+                paused = false;
+                toggle.innerHTML = 'start';
+                output.innerHTML = '0:00:00';
+                clear.dataset.state = '';
+            };
+
+
+            // evaluate and route
+            var router = function () {
+                if (!running) start();
+                else if (paused) resume();
+                else stop();
+            };
+
+            toggle.addEventListener('click', router);
+            clear.addEventListener('click', reset);
+
+        })();
+    </script>
+</body>
+
+</html>
             height: 300px;
             width: 512px;
             position: absolute;
